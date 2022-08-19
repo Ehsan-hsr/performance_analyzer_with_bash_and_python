@@ -1,0 +1,20 @@
+#!/bin/bash
+
+PNAME="python3"
+LOG_FILE="cpu_usage_log"
+COUNTER=0
+ID=$RANDOM
+
+echo $ID
+
+
+while [ $COUNTER -le 10 ]; do
+	echo "$ID , $(date) , $PNAME ,[$(pidof ${PNAME})] ,$(ps -C ${PNAME} -o %cpu | tail -1)" >> $LOG_FILE
+	sleep 2
+	let COUNTER++
+done
+
+> tmp
+python3 analyzer.py
+termgraph tmp
+
